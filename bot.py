@@ -24,3 +24,9 @@ def comprar():
     region_boton_compra = detectar_elemento(boton_compra, 0.8)
     botonx, botony = centro_elemento(region_boton_compra)
     pyautogui.click(botonx, botony)
+
+def detener_compra():
+    boton_detener_compra = "botonDetenerCompra.png"
+    region_boton_detener_compra = detectar_elemento(boton_detener_compra, 0.8)
+    botonx, botony = centro_elemento(region_boton_detener_compra)
+    pyautogui.click(botonx, botony)
