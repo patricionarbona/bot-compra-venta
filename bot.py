@@ -19,3 +19,8 @@ def detectar_elemento(imagen, confianza=0.9):
 def centro_elemento(region_elemento):
     return pyautogui.center(region_elemento)
  
+def comprar():
+    boton_compra = "botonCompra.png"
+    region_boton_compra = detectar_elemento(boton_compra, 0.8)
+    botonx, botony = centro_elemento(region_boton_compra)
+    pyautogui.click(botonx, botony)
