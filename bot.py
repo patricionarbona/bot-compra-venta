@@ -52,3 +52,8 @@ def mover_slider(region=[0,0]):
     pyautogui.mouseDown()
     pyautogui.move(1000,0)
     pyautogui.mouseUp()
+
+imagen = captura_pantalla("captura_pantalla.png")
+roi_grafica = seleccionar_roi(imagen)
+roi_slider = seleccionar_roi(imagen)
+roi_botones = seleccionar_roi(imagen)
