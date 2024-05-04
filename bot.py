@@ -1,5 +1,6 @@
 import cv2
 import pyautogui
+import time
 
 
 def captura_pantalla(nombre_archivo):
@@ -42,3 +43,12 @@ def detener_venta():
     region_boton_detener_venta = detectar_elemento(boton_detener_venta, 0.8)
     botonx, botony = centro_elemento(region_boton_detener_venta)
     pyautogui.click(botonx, botony)
+
+def mover_slider(region=[0,0]):
+    slider = "circuloSlider.png"
+    region_slider = detectar_elemento(slider, 0.8)
+    botonx, botony = centro_elemento(region_slider)
+    pyautogui.moveTo(botonx, botony, duration=0.1)
+    pyautogui.mouseDown()
+    pyautogui.move(1000,0)
+    pyautogui.mouseUp()
