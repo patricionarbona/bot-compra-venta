@@ -15,3 +15,7 @@ def seleccionar_roi(imagen):
 
 def detectar_elemento(imagen, confianza=0.9):
     return pyautogui.locateOnScreen(imagen, confidence=confianza)
+
+def centro_elemento(region_elemento):
+    return pyautogui.center(region_elemento)
+ 
