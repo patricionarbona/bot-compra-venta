@@ -1,6 +1,7 @@
 import cv2
 import pyautogui
 import time
+import tkinter as tk
 
 
 def captura_pantalla(nombre_archivo):
@@ -53,7 +54,27 @@ def mover_slider(region=[0,0]):
     pyautogui.move(1000,0)
     pyautogui.mouseUp()
 
+def boton_presionado(ventana, numero):
+    print("pulsado: ", numero)
+    ventana.destroy()
+
+def ventana_botones():
+    ventana = tk.Tk()
+
+    boton1 = tk.Button(ventana, text="Sin Operacion", command=lambda: boton_presionado(ventana, 1))
+    boton1.pack(side="left")
+
+    boton2 = tk.Button(ventana, text="Comprando ", bg="green", command=lambda: boton_presionado(ventana, 2))
+    boton2.pack(side="left")
+
+    boton3 = tk.Button(ventana, text="Vendiendo", bg="red", command=lambda: boton_presionado(ventana, 3))
+    boton3.pack(side="left")
+
+    ventana.mainloop()
+
+
 imagen = captura_pantalla("captura_pantalla.png")
 roi_grafica = seleccionar_roi(imagen)
 roi_slider = seleccionar_roi(imagen)
 roi_botones = seleccionar_roi(imagen)
+ventana_botones()
