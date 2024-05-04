@@ -36,3 +36,9 @@ def vender():
     region_boton_venta = detectar_elemento(boton_venta, 0.8)
     botonx, botony = centro_elemento(region_boton_venta)
     pyautogui.click(botonx, botony)
+
+def detener_venta():
+    boton_detener_venta = "botonDetenerVenta.png"
+    region_boton_detener_venta = detectar_elemento(boton_detener_venta, 0.8)
+    botonx, botony = centro_elemento(region_boton_detener_venta)
+    pyautogui.click(botonx, botony)
