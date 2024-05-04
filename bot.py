@@ -12,3 +12,6 @@ def seleccionar_roi(imagen):
     roi = cv2.selectROI("Selecciona la ROI", img)
     cv2.destroyAllWindows()
     return roi
+
+def detectar_elemento(imagen, confianza=0.9):
+    return pyautogui.locateOnScreen(imagen, confidence=confianza)
