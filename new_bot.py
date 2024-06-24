@@ -1,50 +1,44 @@
-import tkinter as tk
-from tkinter import ttk
+import cv2
+import numpy as np
 
-class HSVSelector:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Selector de valores HSV")
+def nothing(x):
+    pass
 
-        # Etiquetas y entradas para valores mínimos de HSV
-        ttk.Label(root, text="Hue Mínimo").grid(column=0, row=0, padx=10, pady=5)
-        self.hue_min = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.hue_min).grid(column=1, row=0, padx=10, pady=5)
+# Crear una ventana
+cv2.namedWindow('HSV Selector')
 
-        ttk.Label(root, text="Saturación Mínima").grid(column=0, row=1, padx=10, pady=5)
-        self.sat_min = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.sat_min).grid(column=1, row=1, padx=10, pady=5)
+# Crear los trackbars para los valores mínimos y máximos de HSV
+cv2.createTrackbar('Hue Min', 'HSV Selector', 0, 179, nothing)
+cv2.createTrackbar('Sat Min', 'HSV Selector', 0, 255, nothing)
+cv2.createTrackbar('Val Min', 'HSV Selector', 0, 255, nothing)
+cv2.createTrackbar('Hue Max', 'HSV Selector', 179, 179, nothing)
+cv2.createTrackbar('Sat Max', 'HSV Selector', 255, 255, nothing)
+cv2.createTrackbar('Val Max', 'HSV Selector', 255, 255, nothing)
 
-        ttk.Label(root, text="Valor Mínimo").grid(column=0, row=2, padx=10, pady=5)
-        self.val_min = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.val_min).grid(column=1, row=2, padx=10, pady=5)
+while True:
+    # Leer los valores de los trackbars
+    hue_min = cv2.getTrackbarPos('Hue Min', 'HSV Selector')
+    sat_min = cv2.getTrackbarPos('Sat Min', 'HSV Selector')
+    val_min = cv2.getTrackbarPos('Val Min', 'HSV Selector')
+    hue_max = cv2.getTrackbarPos('Hue Max', 'HSV Selector')
+    sat_max = cv2.getTrackbarPos('Sat Max', 'HSV Selector')
+    val_max = cv2.getTrackbarPos('Val Max', 'HSV Selector')
 
-        # Etiquetas y entradas para valores máximos de HSV
-        ttk.Label(root, text="Hue Máximo").grid(column=0, row=3, padx=10, pady=5)
-        self.hue_max = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.hue_max).grid(column=1, row=3, padx=10, pady=5)
+    # Crear una imagen en negro para mostrar los valores
+    img = np.zeros((100, 600, 3), np.uint8)
+    cv2.putText(img, f'Hue Min: {hue_min}', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    cv2.putText(img, f'Sat Min: {sat_min}', (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    cv2.putText(img, f'Val Min: {val_min}', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    cv2.putText(img, f'Hue Max: {hue_max}', (310, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    cv2.putText(img, f'Sat Max: {sat_max}', (310, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+    cv2.putText(img, f'Val Max: {val_max}', (310, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 
-        ttk.Label(root, text="Saturación Máxima").grid(column=0, row=4, padx=10, pady=5)
-        self.sat_max = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.sat_max).grid(column=1, row=4, padx=10, pady=5)
+    # Mostrar la imagen
+    cv2.imshow('HSV Selector', img)
 
-        ttk.Label(root, text="Valor Máximo").grid(column=0, row=5, padx=10, pady=5)
-        self.val_max = tk.DoubleVar()
-        ttk.Entry(root, textvariable=self.val_max).grid(column=1, row=5, padx=10, pady=5)
+    # Romper el bucle si se presiona la tecla 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-        # Botón para imprimir los valores seleccionados
-        self.print_button = ttk.Button(root, text="Imprimir Valores", command=self.print_values)
-        self.print_button.grid(column=0, row=6, columnspan=2, pady=10)
-
-    def print_values(self):
-        print(f"Hue Mínimo: {self.hue_min.get()}")
-        print(f"Saturación Mínima: {self.sat_min.get()}")
-        print(f"Valor Mínimo: {self.val_min.get()}")
-        print(f"Hue Máximo: {self.hue_max.get()}")
-        print(f"Saturación Máxima: {self.sat_max.get()}")
-        print(f"Valor Máximo: {self.val_max.get()}")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = HSVSelector(root)
-    root.mainloop()
+# Cerrar todas las ventanas
+cv2.destroyAllWindows()
